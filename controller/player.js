@@ -9,18 +9,19 @@ exports.getAll = async (req, res, next) => {
 exports.createPlayer = async (req, res, next) => {
     const { Fname, Lname, Email, Image, Password } = req.body;
     let sql;
-   
+    let email=Email.toLowerCase();
      if (Image == null)
-        sql = `insert into player(Fname,Lname,Email,Password) values ('${Fname}','${Lname}','${Email}','${Password}')`
+        sql = `insert into player(Fname,Lname,Email,Password) values ('${Fname}','${Lname}','${email}','${Password}')`
     else
-        sql = `insert into player(Fname,Lname,Email,Image,Password) values ('${Fname}','${Lname}','${Email}','${Image}','${Password}')`
+        sql = `insert into player(Fname,Lname,Email,Image,Password) values ('${Fname}','${Lname}','${email}','${Image}','${Password}')`
     const resul = await db.query(sql)
     res.send(`Created`)
 }
 /////login in
 exports.LoginPlayer= async (req, res, next) => {
     const { Email, Password } = req.body
-    const sql = `select Fname,Lname,Image,RankPlayer from player where email='${Email}' and password='${Password}';`
+    let email=Email.toLowerCase();
+    const sql = `select Fname,Lname,Image,RankPlayer from player where email='${email}' and password='${Password}';`
     const resul = await db.query(sql)
     res.send(resul[0])
 }

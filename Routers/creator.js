@@ -7,5 +7,5 @@ const creatorMiddelWare=require('../middelware/creator')
 const router=express.Router()
 router.route('/').get(creatorcontroller.getAll)
 router.route('/SignUp').post(creatorcontroller.createCreator)
-router.route('/Login').get(creatorcontroller.LoginCreator)
+router.route('/Login').post(creatorcontroller.LoginCreator)
 module.exports=router

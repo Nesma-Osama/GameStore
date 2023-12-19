@@ -8,9 +8,10 @@ res.send(result[0])
 ///create new admin
 exports.createAdmin=async(req,res,next)=>{
     const {Fname,Lname,Email,Password}=req.body
+    
     let sql
-   
-    sql=`insert into admins(Fname,Lname,Email,Password) values ('${Fname}','${Lname}','${Email}','${Password}')`
+    let email=Email.toLowerCase();
+    sql=`insert into admins(Fname,Lname,Email,Password) values ('${Fname}','${Lname}','${email}','${Password}')`
 
     const resul=await db.query(sql)
     res.send(`Created`)
@@ -18,7 +19,8 @@ exports.createAdmin=async(req,res,next)=>{
 /////login in
 exports.LoginAdmin=async(req,res,next)=>{
     const {Email, Password}=req.body
-    const sql=`select Fname,Lname from admins where email='${Email}' and password='${Password}';`
+    let email=Email.toLowerCase();
+    const sql=`select Fname,Lname from admins where email='${email}' and password='${Password}';`
     const resul=await db.query(sql)
     res.send(resul[0])
 }
