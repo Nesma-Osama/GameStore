@@ -3,7 +3,7 @@ const mysql2 = require('mysql2')
 const db = mysql2.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Nesma2172003',
+    password: 'ffFF55!!',
     database: 'Gamestore'
 })
 db.connect()
