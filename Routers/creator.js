@@ -6,6 +6,8 @@ const creatorMiddelWare=require('../middelware/creator')
 
 const router=express.Router()
 router.route('/').get(creatorcontroller.getAll)
-router.route('/SignUp').post(creatorcontroller.createCreator)
+router.route('/SignUp').post(adminMiddelWare.CheckEmail,adminMiddelWare.CheckPassword,adminMiddelWare.CheckOther,adminMiddelWare.isAdminExistWhenInsert,creatorMiddelWare.isCreatorExistWhenInsert,playerMiddelWare.isPlayerExistWhenInsert,creatorcontroller.createCreator)
 router.route('/Login').post(creatorcontroller.LoginCreator)
+router.route('/Ban').post(creatorcontroller.BanCreator)
+
 module.exports=router

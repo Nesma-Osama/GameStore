@@ -8,5 +8,6 @@ const router=express.Router()
 router.route('/').get(playercontroller.getAll)
 router.route('/SignUp').post(playerMiddelWare.CheckEmail,playerMiddelWare.CheckPassword,playerMiddelWare.CheckOther,adminMiddelWare.isAdminExistWhenInsert,creatorMiddelWare.isCreatorExistWhenInsert,playerMiddelWare.isPlayerExistWhenInsert,playercontroller.createPlayer)
 router.route('/Login').post(playerMiddelWare.CheckEmail,playerMiddelWare.CheckPassword,playercontroller.LoginPlayer)
+router.route('/Ban').post(playercontroller.BanPlayer)
 
 module.exports=router

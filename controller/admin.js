@@ -14,7 +14,7 @@ exports.createAdmin=async(req,res,next)=>{
     sql=`insert into admins(Fname,Lname,Email,Password) values ('${Fname}','${Lname}','${email}','${Password}')`
 
     const resul=await db.query(sql)
-    res.send(`Created`)
+    res.send({iscreated:`Created`})
 }
 /////login in
 exports.LoginAdmin=async(req,res,next)=>{
