@@ -1,6 +1,7 @@
 const db=require('../connect/connection')
 ////////////////get all admin/////////
 exports.getAll=async(req,res,next)=>{
+    
 const sql=`select Fname, Lname,Email from admins `
 const result=await db.query(sql)
 res.send(result[0])
