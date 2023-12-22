@@ -11,7 +11,10 @@ var bodyParser = require('body-parser')
 const cors=require("cors");
 app.use(cors());
 app.use(express.json());
-//app.use(bodyParser.json())
+
+
+
+
 //////////////////////////////////
 app.use('/admin',adminRouter)
 app.use('/creator',creatorRouter)
