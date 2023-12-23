@@ -10,7 +10,6 @@ exports.createCreator = async (req, res, next) => {
     const { Fname, Lname, Email, Description, Image, Password } = req.body
     let sql
     let email=Email.toLowerCase();
-
     if (Image === '' && Description === '')
         sql = `insert into creator(Fname,Lname,Email,Password) values ('${Fname}','${Lname}','${email}','${Password}')`
     else if (Image === '')
