@@ -38,3 +38,12 @@ exports.in_cart=async(req,res,next)=>{
   else
     res.send({msg:"This game is already in your Cart"});
 }
+exports.in_fav=async(req,res,next)=>{
+  const{player_email,game_name}=req.body;
+  const sql=`select * from favorites where PlayerEmail="${player_email}" and GameName="${game_name}"`;
+  const result = await db.query(sql);
+  if(result[0].length==0)
+    next();
+  else
+    res.send({msg:"This game is already in your Wishlist"});
+}

@@ -11,4 +11,5 @@ router.route('/Login').post(playerMiddelWare.CheckEmail,playerMiddelWare.CheckPa
 router.route('/Ban').post(playercontroller.BanPlayer)
 router.route('/player_info').get(playercontroller.Player_info)
 router.route('/AddToCart').post(playerMiddelWare.in_cart,playercontroller.add_to_cart)
+router.route('/AddToFav').post(playerMiddelWare.in_fav,playercontroller.add_to_fav)
 module.exports=router

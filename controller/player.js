@@ -49,3 +49,9 @@ exports.add_to_cart=async(req,res,next)=>{
     const data=await db.query(query);
     res.send({msg:"The Game was added to your cart"});
 }
+exports.add_to_fav=async(req,res,next)=>{
+    const{player_email,game_name}=req.body;
+    let query=`insert into favorites values("${player_email}","${game_name}")`;
+    const data=await db.query(query);
+    res.send({msg:"The Game was added to your Wishlist"});
+}

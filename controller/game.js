@@ -16,3 +16,17 @@ exports.get_game_info=async(req,res,next)=>{
     const data=await db.query(query);
     res.send(data[0]);
 }
+exports.top_sold=async(req,res,next)=>{
+    let query=`SELECT * FROM game
+    ORDER BY totalNumberSales DESC
+    LIMIT 4;`;
+    const data=await db.query(query);
+    res.send(data[0]);
+}
+exports.top_rated=async(req,res,next)=>{
+    let query=`SELECT * FROM game
+    ORDER BY AVGRating DESC
+    LIMIT 15;`;
+    const data=await db.query(query);
+    res.send(data[0]);
+}
