@@ -36,3 +36,16 @@ exports.BanPlayer=async(req,res,next)=>{
    res.send(JSON.stringify(count));
     }
 //////////////////////////////
+exports.Player_info= async (req, res, next) => {
+    const { Email} = req.body
+    let email=Email.toLowerCase();
+    const sql = `select Fname,Lname,Image,RankPlayer from player where email="${email}";`
+    const resul = await db.query(sql)
+    res.send(resul[0])
+}
+exports.add_to_cart=async(req,res,next)=>{
+    const{player_email,game_name}=req.body;
+    let query=`insert into cart values("${player_email}","${game_name}")`;
+    const data=await db.query(query);
+    res.send({msg:"The Game was added to your cart"});
+}
