@@ -17,7 +17,7 @@ exports.Watch=async(req,res,next)=>{
     const {count}=result[0][0];
     console.log(count)
     if(count===1)
-    res.send('You have already seen this ad before you seem to like our ad')
+    res.send({hascoupon:'You have already seen this ad before  it seems that you like our ad'})
   else next()
   
 
