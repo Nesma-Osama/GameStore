@@ -38,3 +38,11 @@ exports.BanCreator=async(req,res,next)=>{
     const {count}=result[0][0]//to get the falue of count 
      res.send(JSON.stringify(count));
     }
+    exports.getCreatedGames = async (req, res, next) => {
+        const {Email} = req.body;
+        let email=Email.toLowerCase();
+        const sql = `select Name,image,Price from game where cemail='${email}';`
+        const result = await db.query(sql)
+        res.send(result[0])
+    }
+    

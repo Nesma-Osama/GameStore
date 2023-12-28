@@ -9,5 +9,5 @@ router.route('/').get(creatorcontroller.getAll)
 router.route('/SignUp').post(adminMiddelWare.CheckEmail,adminMiddelWare.CheckPassword,adminMiddelWare.CheckOther,adminMiddelWare.isAdminExistWhenInsert,creatorMiddelWare.isCreatorExistWhenInsert,playerMiddelWare.isPlayerExistWhenInsert,creatorcontroller.createCreator)
 router.route('/Login').post(creatorcontroller.LoginCreator)
 router.route('/Ban').post(creatorcontroller.BanCreator)
-
+router.route('/CreatorPage').post(creatorcontroller.getCreatedGames)
 module.exports=router
