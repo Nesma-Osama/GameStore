@@ -36,3 +36,42 @@ res.send({event:'cannot participate'})
 
 
 }
+
+exports.Win = async (req, res, next) => {
+  const { Name } = req.body
+  const sql = `select PlayerEmail from participate where not exists ( select pemail from banplayer) and eventname='${Name}'`
+  const result = await db.query(sql)
+  if(result[0][0]==null)
+  res.send({win:'There is No Winner'})
+else{
+console.log(result[0])
+const {PlayerEmail}=result[0][0]
+const sql3 = `
+        SELECT coupid FROM coupon
+        where coupid not in (select couponid from hascoupon as coupon) and redeemed !=1
+        ORDER BY RAND()
+        LIMIT 1; `
+    const result3 = await db.query(sql3);
+    const ishascoupon = result3[0][0]
+    if (ishascoupon == null)
+      res.send({win:'There is No Winner'})
+
+    else {
+      const winner=`insert into win values('${PlayerEmail}','${Name}')`
+      const iswin = await db.query(winner)
+      const insert = `insert into hascoupon values('${PlayerEmail}',${ishascoupon.coupid})`
+
+      const inserted = await db.query(insert)
+      const affect = inserted[0].affectedRows
+      if (affect === 1)
+        res.send({win:`The Winner is ${PlayerEmail} won coupon id : ${ishascoupon.coupid} `})
+      else
+        res.send({win:'There is no winner'})
+
+    }
+
+  }
+
+
+
+}

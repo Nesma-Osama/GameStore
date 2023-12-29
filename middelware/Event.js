@@ -36,3 +36,15 @@ exports.unreachmax=async(req,res,next)=>{
 else
 res.send({event:'This event reach it`s max number'})}
 }
+exports.iswin=async(req,res,next)=>{
+    const {Name}=req.body
+    console.log(Name)
+    const sql=`select PlayerEmail  from win WHERE eventName='${Name}'`
+    const result=await db.query(sql)
+    console.log(result[0][0])
+  if( result[0][0]==null)
+    next()
+  
+else
+res.send({win:`The winner is ${result[0][0].PlayerEmail}`})
+}
