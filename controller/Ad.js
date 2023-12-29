@@ -2,8 +2,9 @@ const db = require('../connect/connection')
 exports.CreateAd = async (req, res) => {
   const { Name, Image, CompanyName, Description, AdminE } = req.body
   let sql;
+  let admin=AdminE.toLowerCase()
 
-  sql = `insert into ad  values('${Name}','${Description}','${Image}','${CompanyName}','${AdminE}')`;
+  sql = `insert into ad  values('${Name}','${Description}','${Image}','${CompanyName}','${admin}')`;
 
   const result = await db.query(sql);
   const { affectedRows } = result[0];//decomposite the returned result
