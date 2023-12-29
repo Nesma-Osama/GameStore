@@ -8,6 +8,7 @@ const game_router=require('./Routers/game')
 const companyRouter=require('./Routers/comany')
 const AdRouter=require('./Routers/Ad')
 const bodyParser = require('body-parser');
+const postRouter=require('./Routers/post')
 
 ///connection part
 ///////////////////////////
@@ -24,6 +25,7 @@ app.use('/creator',creatorRouter)
 app.use('/player',PlayerRouter)
 app.use('/game',game_router)
 app.use('/company',companyRouter)
+app.use('/post',postRouter)
 app.use('/ad',AdRouter)
 
 app.listen(3000,()=>{

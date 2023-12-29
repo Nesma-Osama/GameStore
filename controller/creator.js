@@ -29,6 +29,29 @@ exports.LoginCreator = async (req, res, next) => {
     const resul = await db.query(sql)
     res.send(resul[0])
 }
+
+exports.getActive = async (req,res,next) => {
+    const sql ="Select FNAME,LNAME,email,PASSWORD from creator where email not in (Select CEmail from bancreator);"
+    const result = await db.query(sql)
+    res.send(result[0])
+}
+exports.getBanned = async (req,res,next) => {
+    const sql ="Select FNAME,LNAME,email,PASSWORD from creator,bancreator where email=CEmail;"
+    const result = await db.query(sql)
+    res.send(result[0])
+}
+exports.AdmBanCreator = async (req,res,next) => {
+    const {email,AEmail} = req.body;
+    const sql = `Insert into bancreator (CEmail,AEmail) Values ('${email}',${AEmail});`
+    const result = await db.query(sql)
+    res.send(result[0])
+}
+exports.unBanCreator = async (req,res,next) => {
+    const {email} = req.body;
+    const sql = `Delete from bancreator where CEmail = '${email}';`
+    const result = await db.query(sql)
+    res.send(result[0])
+}
 //////////////////////////////
 exports.BanCreator=async(req,res,next)=>{
     const {Email}=req.body;
