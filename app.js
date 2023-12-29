@@ -7,6 +7,7 @@ const PlayerRouter=require('./Routers/player')
 const game_router=require('./Routers/game')
 const companyRouter=require('./Routers/comany')
 const AdRouter=require('./Routers/Ad')
+const Event=require('./Routers/Event')
 const bodyParser = require('body-parser');
 
 ///connection part
@@ -25,6 +26,7 @@ app.use('/player',PlayerRouter)
 app.use('/game',game_router)
 app.use('/company',companyRouter)
 app.use('/ad',AdRouter)
+app.use('/Event',Event)
 
 app.listen(3000,()=>{
     console.log('your port is 3000')

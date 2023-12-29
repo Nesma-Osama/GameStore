@@ -1,9 +1,10 @@
 const db=require('../connect/connection')
 exports.CreateCompany=async(req,res)=>{
 const {Name,Link,Logo,Description,AdminE}=req.body
+let admin=AdminE.toLowerCase()
 let sql;
 
-  sql=`insert into company  values('${Name}','${Logo}','${Link}','${Description}','${AdminE}')`;
+  sql=`insert into company  values('${Name}','${Logo}','${Link}','${Description}','${admin}')`;
 
 const result=await db.query(sql);
 const {affectedRows}=result[0];//decomposite the returned result
