@@ -17,6 +17,18 @@ exports.createPlayer = async (req, res, next) => {
     const resul = await db.query(sql)
     res.send({iscreated:`Created`})
 }
+exports.getActive = async (req,res,next) => {
+    const sql ="Select fname,Lname,email,PASSWORD from player where email not in (Select PEmail from banplayer);"
+    const result = await db.query(sql)
+    res.send(result[0])
+}
+
+exports.getBanned = async (req,res,next) => {
+    const sql ="Select fname,Lname,email,PASSWORD from player,banplayer where PEmail=email;"
+    const result = await db.query(sql)
+    res.send(result[0])
+}
+
 /////login in
 exports.LoginPlayer= async (req, res, next) => {
     const { Email, Password } = req.body
@@ -35,6 +47,20 @@ exports.BanPlayer=async(req,res,next)=>{
     const {count}=result[0][0]//to get the falue of count 
    res.send(JSON.stringify(count));
     }
+exports.AdmBanPlayer=async(req,res,next)=>{
+    const {email,AEmail}=req.body;
+
+    const sql = `Insert into banplayer (PEmail,AEmail) Values ('${email}',${AEmail});`
+    const result = await db.query(sql)
+    res.send(result[0])
+}
+exports.unBanPlayer=async(req,res,next)=>{
+    const{email}=req.body;
+
+    const sql = `Delete from banplayer where PEmail='${email}';`
+    const result = await db.query(sql)
+    res.send(result[0])
+}
 //////////////////////////////
 exports.Player_info= async (req, res, next) => {
     const { Email} = req.body

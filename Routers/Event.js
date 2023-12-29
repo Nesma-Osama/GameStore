@@ -6,5 +6,6 @@ const EventController=require('../controller/Event')
 router.route('/Add').post(EventMiddelwares.AddEvent,EventController.Event)
 router.route('/Get').get(EventController.GetAll)
 router.route('/Part').post(EventMiddelwares.isParticipate,EventMiddelwares.unreachmax,EventController.Participate)
+router.route('/Win').post(EventMiddelwares.iswin,EventController.Win)
 
 module.exports=router
