@@ -20,4 +20,19 @@ exports.GetAll=async(req,res,next)=>{
     const result=await db.query(sql)
    res.send(result[0])
 
+
+
+}
+exports.Participate=async(req,res,next)=>{
+    const {Name,Email}=req.body
+    const sql=`insert into participate values('${Email}','${Name}')`
+    const result=await db.query(sql)
+    console.log(result)
+  if(result[0]?.affectedRows===
+    1)
+  res.send({event:'you participate in this event'})
+else
+res.send({event:'cannot participate'})
+
+
 }
