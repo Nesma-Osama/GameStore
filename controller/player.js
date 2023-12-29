@@ -55,3 +55,70 @@ exports.add_to_fav=async(req,res,next)=>{
     const data=await db.query(query);
     res.send({msg:"The Game was added to your Wishlist"});
 }
+exports.games_in_cart=async(req,res,next)=>{
+    const{Email}=req.body;
+    let query=`select * from cart , game where name=gamename and PlayerEmail='${Email}'`;
+    const data=await db.query(query);
+    res.send(data[0]);
+}
+exports.remove_from_cart=async(req,res,next)=>{
+    const{game_name,email}=req.body;
+    let query=`delete from cart where playeremail="${email}" and gamename="${game_name}"`;
+    const data=await db.query(query);
+    res.send({msg:"The Game was deleted from Your Cart"});
+}
+exports.use_coupon=async(req,res,next)=>{
+    const{code,email}=req.body;
+    let query=`select price , redeemed , coupid from coupon , hascoupon where CouponID=CoupID and CouponID=${code} and playeremail="${email}"`;
+    const data=await db.query(query);
+    res.send(data[0]);
+}
+exports.is_sub=async(req,res,next)=>{
+    const{email}=req.body;
+    let query=`select percentage , Enddate from playersubs , subscription where subname=SubscriptionName and playeremail="${email}";`;
+    const data=await db.query(query);
+    res.send(data[0]);
+}
+exports.add_order=async(req,res,next)=>{
+    const{email,tot_price,date}=req.body;
+    let query=`insert into ordertable (date,playeremail,price)values(STR_TO_DATE('${date}', '%d-%m-%Y'),"${email}",${tot_price});`;
+    let query2=`SELECT * FROM ordertable WHERE id = LAST_INSERT_ID();`
+    const data=await db.query(query);
+    const data2=await db.query(query2);
+    res.send(data2[0]);
+}
+
+exports.add_game_order = async (req, res, next) => {
+    try {
+        const { id, games,email } = req.body;
+
+        for (const game of games) {
+            const query = `INSERT INTO ordergame VALUES (${id}, "${game.Name}")`;
+            const data = await db.query(query);
+        }
+        const query=`delete from cart where playeremail="${email}"`
+        const data = await db.query(query);
+        res.send({success:"true"})
+    } catch (error) {
+        console.error("Error adding game order:", error);
+       
+    }
+};
+exports.games_in_fav=async(req,res,next)=>{
+    const{Email}=req.body;
+    let query=`select * from favorites , game where name=gamename and PlayerEmail='${Email}'`;
+    const data=await db.query(query);
+    res.send(data[0]);
+}
+exports.remove_from_fav=async(req,res,next)=>{
+    const{game_name,email}=req.body;
+    let query=`delete from favorites where playeremail="${email}" and gamename="${game_name}"`;
+    const data=await db.query(query);
+    res.send({msg:"The Game was deleted from Your Cart"});
+}
+
+
+
+
+
+

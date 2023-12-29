@@ -19,7 +19,7 @@ exports.get_game_info=async(req,res,next)=>{
 exports.top_sold=async(req,res,next)=>{
     let query=`SELECT * FROM game
     ORDER BY totalNumberSales DESC
-    LIMIT 4;`;
+    LIMIT 6;`;
     const data=await db.query(query);
     res.send(data[0]);
 }
@@ -34,7 +34,8 @@ exports.game_search=async(req,res,next)=>{
     const searchTerm = req.query.s_term;
     let q=`select * from game where description  LIKE '%${searchTerm}%'
     union 
-    select * from game where name LIKE '%${searchTerm}%';`;
+    select * from game where name LIKE '%${searchTerm}%' and AVELIABLEDELET=1;`;
     const data=await db.query(q);
     res.send(data[0]);
 }
+
