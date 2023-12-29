@@ -5,10 +5,21 @@ exports.get_all=async (req, res, next) => {
     res.send(result[0])
 }
 exports.create_game=async(req,res,next)=>{
-    const {name,description,price,min_age,rdate,avail,total_sales,avg_rate,c_email}=req.body;
-    let sql=`insert into game values ('${name}','${description}',${price},${min_age},'${rdate}',${avail},${total_sales},${avg_rate},'jhu','${c_email}')`;
+    const {name,description,price,min_age,rdate,c_email,image}=req.body;
+    let sql=`insert into game(Name,description,Price,MIN_AGE,RDATE,image,cemail) values ('${name}','${description}',${price},${min_age},'${rdate}','${image}','${c_email}')`;
+    console.log(sql);
     const resul=await db.query(sql)
-    res.send(`Game Added`)
+    const altered=resul[0];
+    if(altered)
+    {
+    res.send({
+        status:"added",
+        added:"Game added successfully"});
+    }
+    else
+    res.send({
+        status:"failed",
+added:"Failed to add game"});
 }
 exports.get_game_info=async(req,res,next)=>{
     const{name}=req.body;
