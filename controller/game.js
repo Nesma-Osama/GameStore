@@ -1,6 +1,6 @@
 const db=require('../connect/connection');
 exports.get_all=async (req, res, next) => {
-    const sql = `select Name, description, price, MIN_AGE , rdate ,AVELIABLEDELET , totalNumberSales,AVGRating,image,cemail from game`;
+    const sql = `select Name, game.description as description, price, MIN_AGE , rdate ,AVELIABLEDELET , totalNumberSales,AVGRating,game.image as image,fname,lname ,email from game,creator where Cemail=email and AVELIABLEDELET=1  `;
     const result = await db.query(sql)
     res.send(result[0])
 }

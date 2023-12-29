@@ -8,4 +8,5 @@ router.route('/GameInfo').get(gameMiddelWare.check_others_search,gamecontroller.
 router.route('/TopSold').get(gamecontroller.top_sold)
 router.route('/TopRated').get(gamecontroller.top_rated)
 router.route('/search').get(gamecontroller.game_search)
+router.route('/AllGame').get(gamecontroller.get_all)
 module.exports=router
