@@ -24,6 +24,7 @@ added:"Failed to add game"});
 exports.get_game_info=async(req,res,next)=>{
     const{name}=req.body;
     let query=`Select Name, description, price, MIN_AGE , rdate ,AVELIABLEDELET ,totalNumberSales,AVGRating,image,cemail from game where game.Name='${name}'`;
+    console.log(query);
     const data=await db.query(query);
     res.send(data[0]);
 }
@@ -49,3 +50,13 @@ exports.game_search=async(req,res,next)=>{
     const data=await db.query(q);
     res.send(data[0]);
 }
+exports.getReviews=async(req,res,next)=>{
+    const {name}=req.body;
+    const sql=`select fname,Lname,Image,Rating,Reviewcomment,Revdate 
+    from reviewgame,player
+    where playerEmail=email and GameName='${name}';`
+    console.log(sql);
+    const data=await db.query(sql);
+    res.send(data);
+}
+
