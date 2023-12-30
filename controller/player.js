@@ -124,7 +124,7 @@ exports.add_game_order = async (req, res, next) => {
         }
         const query=`delete from cart where playeremail="${email}"`
         const data = await db.query(query);
-        res.send({success:"true"})
+        next();
     } catch (error) {
         console.error("Error adding game order:", error);
        
